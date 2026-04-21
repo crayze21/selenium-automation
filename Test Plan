@@ -1,0 +1,127 @@
+🧪 1. Test Plan Overview
+
+Project: Toreja Medical Clinic Website
+Testing Type: UI Automation Testing
+Tool: Selenium WebDriver with Python
+Browsers: Chrome (primary), Firefox (secondary)
+Test Type: Functional, UI, Navigation, Form Validation, Basic Security, Cross-browser
+
+Objective:
+Verify that all user-facing features of the clinic website work correctly, reliably, and consistently across browsers.
+
+🏗️ 2. Scope of Testing
+
+You will automate testing for:
+
+Page loading & navigation
+Links and buttons
+Forms (especially contact/appointment)
+Input validation
+UI elements
+Error handling
+Responsiveness (basic)
+Content visibility
+Broken links/images
+🚫 Out of Scope (for now)
+Backend/database testing
+Performance/load testing
+API testing
+Payment gateway (if any later)
+🧭 3. Pages to Cover
+
+Typical pages on a clinic website (confirm on site):
+
+Home page
+About Us
+Services
+Doctors/Staff
+Contact Us
+Appointment/Booking form
+Navigation menu & footer
+
+Each of these becomes a test module in your Selenium project.
+
+✅ 4. High-Level Test Scenarios (Automatable)
+A. Home Page Tests
+ID	Test Scenario	Expected Result
+TC_HM_01	Verify homepage loads	Title and main banner visible
+TC_HM_02	Verify logo present	Logo displayed
+TC_HM_03	Verify navigation menu links	All menu links clickable
+TC_HM_04	Verify images load	No broken images
+TC_HM_05	Verify footer links	All footer links work
+B. Navigation Tests
+ID	Test Scenario	Expected Result
+TC_NAV_01	Click each menu item	Correct page opens
+TC_NAV_02	Back/forward browser navigation	Works correctly
+TC_NAV_03	URL validation	URL matches page
+C. Services Page Tests
+ID	Test Scenario	Expected Result
+TC_SER_01	Services page loads	Heading visible
+TC_SER_02	Services listed	All services visible
+TC_SER_03	Links/buttons work	Navigate correctly
+D. Contact / Appointment Form (VERY IMPORTANT)
+
+This is the main automation focus.
+
+ID	Test Scenario	Test Data	Expected Result
+TC_FORM_01	Submit empty form	None	Validation errors shown
+TC_FORM_02	Invalid email	test@	Error message
+TC_FORM_03	Invalid phone	abc123	Error message
+TC_FORM_04	Valid submission	Valid data	Success message
+TC_FORM_05	Long input text	500 chars	Handled correctly
+TC_FORM_06	Special characters	@#$%^	Handled/sanitized
+TC_FORM_07	Required fields check	Partial data	Errors shown
+E. UI Element Tests
+ID	Test Scenario	Expected Result
+TC_UI_01	Buttons visible	Displayed and clickable
+TC_UI_02	Text alignment	Proper layout
+TC_UI_03	Font/text visible	No overlap
+TC_UI_04	Mobile view (resize window)	Layout adjusts
+F. Broken Links & Images
+ID	Test Scenario	Expected Result
+TC_BL_01	Check all <a> tags	No 404 links
+TC_BL_02	Check all <img> tags	No broken images
+
+(You can automate this using requests + Selenium)
+
+G. Basic Security Checks (Automation-friendly)
+ID	Test Scenario	Expected Result
+TC_SEC_01	Input script tags in form	Not executed
+TC_SEC_02	SQL-like input ' OR 1=1	Handled safely
+🧩 5. Test Data Strategy
+
+Create a Python file:
+
+test_data = {
+    "valid_name": "John Doe",
+    "valid_email": "john@gmail.com",
+    "invalid_email": "john@",
+    "valid_phone": "0712345678",
+    "invalid_phone": "abcd123",
+}
+🗂️ 6. Suggested Selenium Project Structure
+/tests
+    test_home.py
+    test_navigation.py
+    test_services.py
+    test_form.py
+    test_ui.py
+/utils
+    driver_setup.py
+    test_data.py
+▶️ 7. Entry / Exit Criteria
+
+Entry:
+
+Website accessible
+ChromeDriver installed
+Selenium + Pytest installed
+
+Exit:
+
+All test cases executed
+All major defects reported
+Automation runs without script failure
+📊 8. Reporting
+
+Use pytest-html or Allure reports to generate reports.
