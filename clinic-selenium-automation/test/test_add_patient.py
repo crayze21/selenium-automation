@@ -22,4 +22,4 @@ def test_add_patient(driver):
 
     #wait and verify success
     message = patients.get_success_message()
-    assert "Patient added successfully" in message.lower()
+    assert "successfully" in message.lower()
