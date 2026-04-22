@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from utils.driver_factory import DriverFactory
+from pms_selenium_autmation.utils.driver_factory import DriverFactory
 from locators.locators import URLs, LoginPage
 
 
@@ -43,7 +43,7 @@ def logged_in_driver(driver):
     Use this fixture in every test that requires an authenticated session.
     """
     driver.get(URLs.LOGIN)
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
 
     wait.until(EC.presence_of_element_located(LoginPage.USERNAME_INPUT))
     driver.find_element(*LoginPage.USERNAME_INPUT).send_keys("admin")

@@ -3,10 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/clinic-selenium-automation" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/pms-selenium-autmation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pms_selenium_autmation" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (selenium-automation)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.14 (selenium-automation) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
