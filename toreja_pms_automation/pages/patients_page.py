@@ -7,6 +7,8 @@ import logging
 import time
 from selenium.webdriver.support import expected_conditions as EC
 
+from utils.logger import get_logger
+from utils.test_step import step
 from pages.base_page import BasePage
 from locators.locators import PatientsPage as L, URLs
 
@@ -60,14 +62,21 @@ class PatientsPage(BasePage):
     def add_patient(self, name: str, address: str, cnic: str,
                     dob: str, phone: str, gender: str) -> None:
         """Fill and submit the Add Patient form."""
-        self.enter_patient_name(name)
-        self.enter_address(address)
-        self.enter_cnic(cnic)
-        self.enter_date_of_birth(dob)
-        self.enter_phone_number(phone)
-        self.select_gender(gender)
-        self.click_save()
         logger.info(f"Add patient submitted: {name}")
+        with step("Enter patient name"):
+            self.helpers.type_text(L.PATIENT_NAME, name)
+        with step("Enter address"):
+            self.helpers.type_text(L.ADDRESS, address)
+        with step("Enter CNIC"):
+            self.helpers.type_text(L.CNIC, cnic)
+        with step("Set date of birth"):
+            self.helpers.set_date_via_js(L.DATE_OF_BIRTH_INPUT, dob)
+        with step("Enter phone number"):
+            self.helpers.type_text(L.PHONE_NUMBER, phone)
+        with step("Select gender"):
+            self.helpers.select_by_visible_text(L.GENDER, gender)
+        with step("Click Save button"):
+            self.helpers.click(L.SAVE_BTN)
 
     # ── DataTable interactions ─────────────────────────────────────────────────
 

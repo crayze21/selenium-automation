@@ -21,20 +21,37 @@ logger = logging.getLogger(__name__)
 
 
 class Helpers:
-    pass
+
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(driver, Config.EXPLICIT_WAIT)
 
     # ── Waits ──────────────────────────────────────────────────────────────────
 
-    def wait_for_element(self, locator: tuple) -> WebElement:
-        """Wait until an element is present and visible."""
-        return self.wait.until(EC.visibility_of_element_located(locator))
+    def wait_for_element(self, locator: tuple, timeout: int = None):
+        t = timeout or Config.EXPLICIT_WAIT
+        logger.debug(f"WAIT   visible  {locator[1]}  (up to {t}s)")
+        try:
+            el = WebDriverWait(self.driver, t).until(
+                EC.visibility_of_element_located(locator)
+            )
+            logger.debug(f"FOUND  {locator[1]}")
+            return el
+        except TimeoutException:
+            logger.error(f"TIMEOUT  element not visible after {t}s: {locator[1]}")
+            raise
 
-    def wait_for_clickable(self, locator: tuple) -> WebElement:
-        """Wait until an element is clickable."""
-        return self.wait.until(EC.element_to_be_clickable(locator))
+    def wait_for_clickable(self, locator: tuple, timeout: int = None):
+        t = timeout or Config.EXPLICIT_WAIT
+        logger.debug(f"WAIT   clickable  {locator[1]}  (up to {t}s)")
+        try:
+            el = WebDriverWait(self.driver, t).until(
+                EC.element_to_be_clickable(locator)
+            )
+            return el
+        except TimeoutException:
+            logger.error(f"TIMEOUT  element not clickable after {t}s: {locator[1]}")
+            raise
 
     def wait_for_url_contains(self, partial_url: str, timeout: int = None) -> bool:
         """Wait until the current URL contains a given string."""
@@ -52,18 +69,18 @@ class Helpers:
     # ── Actions ────────────────────────────────────────────────────────────────
 
     def click(self, locator: tuple) -> None:
-        """Wait for element to be clickable, then click it."""
         element = self.wait_for_clickable(locator)
+        tag  = element.tag_name
+        text = (element.text or element.get_attribute("value") or "")[:40]
+        logger.debug(f"CLICK  <{tag}>  '{text}'  {locator[1]}")
         element.click()
-        logger.debug(f"Clicked: {locator}")
 
     def type_text(self, locator: tuple, text: str, clear: bool = True) -> None:
-        """Wait for element, optionally clear it, then type text."""
         element = self.wait_for_element(locator)
         if clear:
             element.clear()
         element.send_keys(text)
-        logger.debug(f"Typed '{text}' into: {locator}")
+        logger.debug(f"TYPE   '{text}'  →  {locator[1]}")
 
     def get_text(self, locator: tuple) -> str:
         """Return the visible text of an element."""
@@ -92,8 +109,8 @@ class Helpers:
     def select_by_visible_text(self, locator: tuple, text: str) -> None:
         """Select a native <select> option by visible text."""
         element = self.wait_for_element(locator)
+        logger.debug(f"SELECT  '{text}'  in  {locator[1]}")
         Select(element).select_by_visible_text(text)
-        logger.debug(f"Selected '{text}' in: {locator}")
 
     def select_by_value(self, locator: tuple, value: str) -> None:
         """Select a native <select> option by value attribute."""
@@ -132,10 +149,11 @@ class Helpers:
         """
         element = self.driver.find_element(*locator)
         self.driver.execute_script(
-            "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
+            "arguments[0].value = arguments[1]; "
+            "arguments[0].dispatchEvent(new Event('change'));",
             element, date_value
         )
-        logger.debug(f"Set date '{date_value}' on: {locator}")
+        logger.debug(f"DATE_JS  '{date_value}'  →  {locator[1]}")
 
     # ── DataTable helpers ──────────────────────────────────────────────────────
 
@@ -143,7 +161,7 @@ class Helpers:
         """Return number of visible rows in a DataTable tbody."""
         from selenium.webdriver.common.by import By
         table = self.wait_for_element(table_locator)
-        rows = table.find_elements(By.CSS_SELECTOR, "tbody tr")
+        rows = table.find_elements(By.CSS_SELECTOR, "tbody tr td:not(.dataTables_empty)")
         return len([r for r in rows if r.text.strip()])
 
     def get_table_cell_text(self, table_id: str, row: int, col: int) -> str:
