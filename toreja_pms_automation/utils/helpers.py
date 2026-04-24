@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class Helpers:
-
+    pass
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(driver, Config.EXPLICIT_WAIT)
