@@ -1,0 +1,15 @@
+2026-04-24 14:09:16  [96mINFO[0m  pms_tests                       Log file: C:\Users\SMPC\PycharmProjects\selenium-automation\toreja_pms_automation\logs\test_run_20260424_140916.log
+2026-04-24 14:10:22  [96mINFO[0m  pms_tests.step                  ┌─ Enter patient name
+2026-04-24 14:10:22  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter patient name  (0.06s)
+2026-04-24 14:10:22  [96mINFO[0m  pms_tests.step                  ┌─ Enter address
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter address  (0.06s)
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  ┌─ Enter CNIC
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter CNIC  (0.05s)
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  ┌─ Set date of birth
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Set date of birth  (0.01s)
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  ┌─ Enter phone number
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter phone number  (0.05s)
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  ┌─ Select gender
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Select gender  (0.07s)
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  ┌─ Click Save button
+2026-04-24 14:10:23  [96mINFO[0m  pms_tests.step                  └─ PASS  Click Save button  (0.05s)

@@ -6,9 +6,11 @@
 import pytest
 import logging
 import os
+from datetime import datetime
 
 from utils.driver_factory import DriverFactory
 from utils.config import Config
+from utils.logger import get_logger
 from pages.login_page import LoginPage
 from pages.dashboard_page import DashboardPage
 from pages.patients_page import PatientsPage
@@ -32,12 +34,13 @@ os.makedirs(Config.REPORT_DIR,     exist_ok=True)
 
 @pytest.fixture(scope="function")
 def driver():
-    """Provide a fresh WebDriver instance for each test. Quit after test ends."""
+    logger.info("=" * 60)
+    logger.info("Browser session starting")
     drv = DriverFactory.get_driver()
-    logger.info("Browser started")
     yield drv
+    logger.info("Browser session closing")
+    logger.info("=" * 60)
     drv.quit()
-    logger.info("Browser closed")
 
 
 # ==============================================================================
@@ -50,17 +53,17 @@ def auth_driver(driver):
     Provide a driver that is already logged in as admin.
     Use this fixture instead of `driver` for any test that requires login.
     """
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+    logger.info("Logging in as admin")
     login = LoginPage(driver)
     login.open()
     login.login_as_admin()
-
-    # Wait until dashboard is reached
-    from selenium.webdriver.support.ui import WebDriverWait
-    from selenium.webdriver.support import expected_conditions as EC
     WebDriverWait(driver, Config.EXPLICIT_WAIT).until(
         EC.url_contains("dashboard.php")
     )
-    logger.info("Logged in as admin — dashboard reached")
+    logger.info("Login successful — dashboard reached")
     return driver
 
 
@@ -130,16 +133,80 @@ def users_page(auth_driver):
 # ==============================================================================
 # AUTO-SCREENSHOT ON FAILURE
 # ==============================================================================
-
+# ── Failure capture hook ───────────────────────────────────────────────────────
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
-    if report.when == "call" and report.failed:
-        driver = item.funcargs.get("driver") or item.funcargs.get("auth_driver")
+    if report.when != "call" or not report.failed:
+        return
+
+    # Find the driver from any fixture name that could hold it
+    driver = None
+    for name in ("driver", "auth_driver"):
+        driver = item.funcargs.get(name)
         if driver:
-            test_name = item.name.replace(" ", "_")
-            path = os.path.join(Config.SCREENSHOT_DIR, f"FAIL_{test_name}.png")
-            driver.save_screenshot(path)
-            logger.warning(f"Failure screenshot: {path}")
+            break
+
+    if not driver:
+        return
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_name = item.nodeid.replace("/", "_").replace("::", "_").replace(" ", "_")
+
+    # 1. Screenshot
+    os.makedirs(Config.SCREENSHOT_DIR, exist_ok=True)
+    screenshot_path = os.path.join(
+        Config.SCREENSHOT_DIR, f"FAIL_{safe_name}_{timestamp}.png"
+    )
+    try:
+        driver.save_screenshot(screenshot_path)
+        logger.warning(f"Screenshot saved: {screenshot_path}")
+    except Exception as e:
+        logger.error(f"Could not save screenshot: {e}")
+        screenshot_path = None
+
+    # 2. Page source
+    source_path = os.path.join(
+        Config.SCREENSHOT_DIR, f"FAIL_{safe_name}_{timestamp}.html"
+    )
+    try:
+        with open(source_path, "w", encoding="utf-8") as f:
+            f.write(driver.page_source)
+        logger.warning(f"Page source saved: {source_path}")
+    except Exception as e:
+        logger.error(f"Could not save page source: {e}")
+        source_path = None
+
+    # 3. Log current URL
+    try:
+        current_url = driver.current_url
+        logger.error(f"Failure URL: {current_url}")
+    except Exception:
+        current_url = "unknown"
+
+    # 4. Attach everything to pytest-html report
+    try:
+        import pytest_html
+        extras = getattr(report, "extras", [])
+        if screenshot_path:
+            extras.append(pytest_html.extras.image(screenshot_path))
+        if source_path:
+            extras.append(pytest_html.extras.url(
+                f"file://{source_path}", name="Page source"
+            ))
+        extras.append(pytest_html.extras.text(
+            f"URL at failure: {current_url}", name="URL"
+        ))
+        report.extras = extras
+    except ImportError:
+        pass   # pytest-html not installed — skip silently
+
+
+# ── Log test start and end ─────────────────────────────────────────────────────
+
+def pytest_runtest_logreport(report):
+    if report.when == "call":
+        status = "PASS" if report.passed else ("FAIL" if report.failed else "SKIP")
+        logger.info(f"{status}  {report.nodeid}  ({report.duration:.2f}s)")
