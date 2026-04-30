@@ -210,3 +210,32 @@ def pytest_runtest_logreport(report):
     if report.when == "call":
         status = "PASS" if report.passed else ("FAIL" if report.failed else "SKIP")
         logger.info(f"{status}  {report.nodeid}  ({report.duration:.2f}s)")
+
+# conftest.py  — add this fixture
+
+@pytest.fixture(scope="class")
+def e2e_driver():
+    """
+    Single browser session for the entire E2E test class.
+    Logs in once, keeps session alive across all test methods.
+    Scope is 'class' so setup/teardown runs once per class, not per test.
+    """
+    from pages.login_page import LoginPage
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+    drv = DriverFactory.get_driver()
+    logger.info("E2E browser session starting")
+
+    login = LoginPage(drv)
+    login.open()
+    login.login_as_admin()
+    WebDriverWait(drv, Config.EXPLICIT_WAIT).until(
+        EC.url_contains("dashboard.php")
+    )
+    logger.info("E2E login successful")
+
+    yield drv
+
+    logger.info("E2E browser session closing")
+    drv.quit()

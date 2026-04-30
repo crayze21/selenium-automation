@@ -2,7 +2,7 @@
 # test_data/test_data.py
 # Centralised test data used across all test modules
 # =============================================================================
-
+import uuid
 
 class LoginData:
     VALID_USERNAME    = "admin"
@@ -81,3 +81,36 @@ class UserData:
         "username":     "nopwduser",
         "password":     "",
     }
+
+class E2EData:
+    """
+    Unique data generated per test run so E2E tests never
+    collide with existing records or each other.
+    """
+
+    @staticmethod
+    def patient() -> dict:
+        uid = uuid.uuid4().hex[:6].upper()
+        return {
+            "name":    f"E2E Patient {uid}",
+            "address": "123 Test Street, Manila",
+            "cnic":    f"E2E{uid}",
+            "dob":     "1990-05-15",
+            "phone":   "09171234567",
+            "gender":  "Male",
+        }
+
+    @staticmethod
+    def medicine() -> str:
+        uid = uuid.uuid4().hex[:6].upper()
+        return f"E2EMed{uid}"
+
+    VISIT_DATE      = "2026-04-23"
+    NEXT_VISIT_DATE = "2026-05-07"
+    BP              = "120/80"
+    WEIGHT          = "68"
+    DISEASE         = "E2E Hypertension"
+    FREQUENCY       = "1-0-1 (M-N)"
+    TIMING          = "After Meal"
+    QTY             = "10"
+    DOSAGE          = "500mg"
