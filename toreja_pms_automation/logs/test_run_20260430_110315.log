@@ -1,0 +1,111 @@
+2026-04-30 11:03:15  [96mINFO[0m  pms_tests                       Log file: C:\Users\SMPC\PycharmProjects\selenium-automation\toreja_pms_automation\logs\test_run_20260430_110315.log
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  === E2E STAGE 1: Verify dashboard after login ===
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  ┌─ Check URL is dashboard.php
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  └─ PASS  Check URL is dashboard.php  (0.00s)
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  ┌─ Check welcome message
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  └─ PASS  Check welcome message  (0.02s)
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  ┌─ Check all four stat boxes are visible
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  └─ PASS  Check all four stat boxes are visible  (0.05s)
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  STAGE 1 PASSED
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  === E2E STAGE 2: Add new patient ===
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Patient name for this run: E2E Patient 67087E
+2026-04-30 11:03:33  [96mINFO[0m  pms_tests.step                  ┌─ Navigate to patients page
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Navigate to patients page  (18.00s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Record initial patient count
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Initial patient count: 26
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Record initial patient count  (0.17s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Fill and submit add patient form
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Enter patient name
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter patient name  (0.06s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Enter address
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter address  (0.06s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Enter CNIC
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter CNIC  (0.05s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Set date of birth
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Set date of birth  (0.01s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Enter phone number
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Enter phone number  (0.05s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Select gender
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Select gender  (0.07s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Click Save button
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Click Save button  (0.06s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  └─ PASS  Fill and submit add patient form  (0.36s)
+2026-04-30 11:03:51  [96mINFO[0m  pms_tests.step                  ┌─ Wait for page to reload after save
+2026-04-30 11:03:53  [96mINFO[0m  pms_tests.step                  └─ PASS  Wait for page to reload after save  (1.92s)
+2026-04-30 11:03:53  [96mINFO[0m  pms_tests.step                  ┌─ Verify patient appears in the table
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.step                  └─ PASS  Verify patient appears in the table  (1.41s)
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  STAGE 2 PASSED
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  === E2E STAGE 3: Add new medicine ===
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Medicine name for this run: E2EMed4B1553
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.step                  ┌─ Navigate to medicines page
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.step                  └─ PASS  Navigate to medicines page  (0.41s)
+2026-04-30 11:03:55  [96mINFO[0m  pms_tests.step                  ┌─ Fill and submit add medicine form
+2026-04-30 11:03:57  [96mINFO[0m  pms_tests.step                  └─ PASS  Fill and submit add medicine form  (1.62s)
+2026-04-30 11:03:57  [96mINFO[0m  pms_tests.step                  ┌─ Wait for page to reload after save
+2026-04-30 11:03:57  [96mINFO[0m  pms_tests.step                  └─ PASS  Wait for page to reload after save  (0.01s)
+2026-04-30 11:03:57  [96mINFO[0m  pms_tests.step                  ┌─ Verify medicine appears in the table
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.step                  └─ PASS  Verify medicine appears in the table  (1.38s)
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  STAGE 3 PASSED
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  === E2E STAGE 4: Create prescription ===
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Using patient: E2E Patient 67087E
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Using medicine: E2EMed4B1553
+2026-04-30 11:03:58  [96mINFO[0m  pms_tests.step                  ┌─ Navigate to new prescription page
+2026-04-30 11:03:59  [96mINFO[0m  pms_tests.step                  └─ PASS  Navigate to new prescription page  (0.66s)
+2026-04-30 11:03:59  [96mINFO[0m  pms_tests.step                  ┌─ Select patient from dropdown
+2026-04-30 11:04:29  [91mERROR[0m  pms_tests.step                  └─ FAIL  Select patient from dropdown  (30.16s)
+2026-04-30 11:04:29  [91mERROR[0m  pms_tests.step                     TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0xf5b373+10553]
+	chromedriver!GetHandleVerifier [0xf5b4a4+10684]
+	chromedriver!(No symbol) [0xd61e10]
+	chromedriver!(No symbol) [0xdaa9da]
+	chromedriver!(No symbol) [0xdaac7b]
+	chromedriver!(No symbol) [0xded162]
+	chromedriver!(No symbol) [0xdcd8b4]
+	chromedriver!(No symbol) [0xdeaa36]
+	chromedriver!(No symbol) [0xdcd606]
+	chromedriver!(No symbol) [0xda0039]
+	chromedriver!(No symbol) [0xda0df4]
+	chromedriver!GetHandleVerifier [0x11dddb4+292f94]
+	chromedriver!GetHandleVerifier [0x11d937d+28e55d]
+	chromedriver!GetHandleVerifier [0x11f8215+2ad3f5]
+	chromedriver!GetHandleVerifier [0xf74c18+29df8]
+	chromedriver!GetHandleVerifier [0xf7c6fd+318dd]
+	chromedriver!GetHandleVerifier [0xf63c78+18e58]
+	chromedriver!GetHandleVerifier [0xf63e42+19022]
+	chromedriver!GetHandleVerifier [0xf4d45f+263f]
+	KERNEL32!BaseThreadInitThunk [0x76c2fcc9+19]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77dc82ae+11e]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77dc827e+ee]
+
+2026-04-30 11:04:29  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  === E2E STAGE 5: Verify patient history ===
+2026-04-30 11:04:29  [96mINFO[0m  pms_tests.tests.test_e2e_prescription  Searching history for patient: E2E Patient 67087E
+2026-04-30 11:04:29  [96mINFO[0m  pms_tests.step                  ┌─ Navigate to patient history page
+2026-04-30 11:04:30  [96mINFO[0m  pms_tests.step                  └─ PASS  Navigate to patient history page  (1.13s)
+2026-04-30 11:04:30  [96mINFO[0m  pms_tests.step                  ┌─ Select patient and search history
+2026-04-30 11:05:00  [91mERROR[0m  pms_tests.step                  └─ FAIL  Select patient and search history  (30.25s)
+2026-04-30 11:05:00  [91mERROR[0m  pms_tests.step                     TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0xf5b373+10553]
+	chromedriver!GetHandleVerifier [0xf5b4a4+10684]
+	chromedriver!(No symbol) [0xd61e10]
+	chromedriver!(No symbol) [0xdaa9da]
+	chromedriver!(No symbol) [0xdaac7b]
+	chromedriver!(No symbol) [0xded162]
+	chromedriver!(No symbol) [0xdcd8b4]
+	chromedriver!(No symbol) [0xdeaa36]
+	chromedriver!(No symbol) [0xdcd606]
+	chromedriver!(No symbol) [0xda0039]
+	chromedriver!(No symbol) [0xda0df4]
+	chromedriver!GetHandleVerifier [0x11dddb4+292f94]
+	chromedriver!GetHandleVerifier [0x11d937d+28e55d]
+	chromedriver!GetHandleVerifier [0x11f8215+2ad3f5]
+	chromedriver!GetHandleVerifier [0xf74c18+29df8]
+	chromedriver!GetHandleVerifier [0xf7c6fd+318dd]
+	chromedriver!GetHandleVerifier [0xf63c78+18e58]
+	chromedriver!GetHandleVerifier [0xf63e42+19022]
+	chromedriver!GetHandleVerifier [0xf4d45f+263f]
+	KERNEL32!BaseThreadInitThunk [0x76c2fcc9+19]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77dc82ae+11e]
+	ntdll!RtlGetAppContainerNamedObjectPath [0x77dc827e+ee]
+
